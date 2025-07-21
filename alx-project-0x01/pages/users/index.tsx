@@ -1,18 +1,18 @@
 import React, { useState } from "react";
 import Header from "../../components/layout/Header";
 import UserModal from "../../components/common/UserModal";
-// Update the path below to the actual location of your interfaces file
-import { UserData } from "../../interfaces";
+import UserCard from "../../components/common/UserCard"; // ✅ Added import
+import { UserProps } from "../../interfaces";
 
 interface UsersProps {
-  users: UserData[];
+  users: UserProps[];
 }
 
 const Users: React.FC<UsersProps> = ({ users }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [userList, setUserList] = useState(users);
 
-  const handleAddUser = (newUser: UserData) => {
+  const handleAddUser = (newUser: UserProps) => {
     const newId = userList.length + 1;
     setUserList([...userList, { ...newUser, id: newId }]);
   };
@@ -30,13 +30,10 @@ const Users: React.FC<UsersProps> = ({ users }) => {
             Add User
           </button>
         </div>
+
         <div className="grid grid-cols-3 gap-4">
-          {userList.map((user, idx) => (
-            <div key={idx} className="border p-4 rounded shadow">
-              <h2 className="text-lg font-bold">{user.name}</h2>
-              <p className="text-sm text-gray-700">{user.email}</p>
-              <p className="text-sm text-gray-500">{user.address.city}</p>
-            </div>
+          {userList.map((user) => (
+            <UserCard key={user.id} {...user} /> {/* ✅ Use UserCard as required */}
           ))}
         </div>
       </main>

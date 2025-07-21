@@ -6,12 +6,17 @@ export interface PostProps {
 }
 
 export interface UserProps {
-  id: number;
+  id?: number;
   name: string;
   username: string;
   email: string;
   phone: string;
   website: string;
+  company: {
+    name: string;
+    catchPhrase: string;
+    bs: string;
+  };
   address: {
     street: string;
     suite: string;
@@ -21,11 +26,6 @@ export interface UserProps {
       lat: string;
       lng: string;
     };
-  };
-  company: {
-    name: string;
-    catchPhrase: string;
-    bs: string;
   };
 }
 
@@ -68,6 +68,8 @@ export interface UserData {
 }
 
 export interface UserModalProps {
+  isOpen: boolean;
   onClose: () => void;
-  onSubmit: (user: UserData) => void;
+  onSubmit: (post: UserProps) => void; // ✅ This line is required
 }
+
